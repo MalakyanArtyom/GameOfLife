@@ -139,7 +139,9 @@ class GrassEater {
             if (this.energy <= 0) {
                 this.die();
             }
+            
         }
+        console.log(this.energy);
 
     }
     die() {

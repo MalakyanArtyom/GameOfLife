@@ -2,17 +2,23 @@ var backcolor = '#acacac';
 
 var weather = {
     summer: function () {
-        backcolor = '#acacac';
-        console.log("Summer");
+        backcolor = 'palegreen';
+        for(var i in grassEatArr){
+            grassEatArr[i].energy += 3;
+            break;
+        }
     },
     winter: function () {
         backcolor = 'white';
-        console.log("Winter");
+        for(var i in grassEatArr){
+            grassEatArr[i].energy = 2;
+            break;
+        }
     }
 }
 
 var matrix = [
-    [0, 2, 1, 0, 3],
+    [0, 2, 1, 0, 0],
     [1, 0, 0, 0, 0],
     [0, 1, 0, 0, 0],
     [0, 0, 1, 0, 0],
@@ -100,7 +106,7 @@ function draw() {
         days = 0;
         
     }
-    console.log(days);
+    
 
     for (var i in bugArr)
         bugArr[i].infect();
