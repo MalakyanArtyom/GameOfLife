@@ -1,17 +1,32 @@
-/* var matrix = [
+var backcolor = '#acacac';
+
+var weather = {
+    summer: function () {
+        backcolor = '#acacac';
+        console.log("Summer");
+    },
+    winter: function () {
+        backcolor = 'white';
+        console.log("Winter");
+    }
+}
+
+var matrix = [
     [0, 2, 1, 0, 3],
     [1, 0, 0, 0, 0],
     [0, 1, 0, 0, 0],
-    [0, 0, 1, 0, 5],
+    [0, 0, 1, 0, 0],
     [1, 1, 0, 0, 0],
     [1, 1, 0, 4, 0],
     [1, 1, 0, 0, 0]
-    ]; */
-    
-var matrix = []
+];
+
+//var matrix = [];
 var n = 50;
-var m = 50; 
-var side = 14;
+var m = 50;
+var side = 120;
+var days = 0;
+
 
 var grassArr = [];
 var grassEatArr = [];
@@ -21,7 +36,7 @@ var infPredatorArr = [];
 var bugArr = [];
 
 function setup() {
-    for (var y = 0; y < n; y++) {
+    /* for (var y = 0; y < n; y++) {
         matrix[y] = [];
         for (var x = 0; x < m; x++) {
             matrix[y][x] = random([0, 1])
@@ -34,12 +49,12 @@ function setup() {
         matrix[Math.floor(random(50))][Math.floor(random(50))] = 3;
         matrix[Math.floor(random(50))][Math.floor(random(50))] = 4;
         matrix[Math.floor(random(50))][Math.floor(random(50))] = 5;
-    }
+    } */
 
 
 
 
-    frameRate(5);
+    frameRate(1);
     createCanvas(matrix[0].length * side, matrix.length * side);
     background('#acacac');
 
@@ -72,14 +87,27 @@ function setup() {
 
 
 function draw() {
+    days ++;
+    if(days < 10){
+        weather.winter();
+        
+    }
+    else if(days >= 10 && days < 20){
+        weather.summer();
+        
+    }
+    else if(days == 20){
+        days = 0;
+        
+    }
+    console.log(days);
 
-    
     for (var i in bugArr)
         bugArr[i].infect();
 
     for (var i in infPredatorArr)
         infPredatorArr[i].eat();
-    
+
     for (var i in humanArr)
         humanArr[i].eat();
 
@@ -104,7 +132,7 @@ function draw() {
 
             }
             else if (matrix[y][x] == 0) {
-                fill("#acacac");
+                fill(backcolor);
                 rect(x * side, y * side, side, side);
             }
             else if (matrix[y][x] == 2) {

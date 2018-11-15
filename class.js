@@ -91,8 +91,9 @@ class GrassEater {
 
         var empty = this.chooseCell(0);
         var cell = random(empty);
+        
 
-        if (cell && this.mulPoint >= 4) {
+        if (cell && this.mulPoint >= 3) {
             var newX1 = cell[0];
             var newY1 = cell[1];
             for (var i in this.directions) {
@@ -564,22 +565,7 @@ class Bug {
             [this.x - 1, this.y + 1],
             [this.x, this.y + 1],
             [this.x + 1, this.y + 1],
-            [this.x - 2, this.y - 2],
-            [this.x - 1, this.y - 2],
-            [this.x, this.y - 2],
-            [this.x - 1, this.y - 2],
-            [this.x + 2, this.y - 2],
-            [this.x + 2, this.y - 1],
-            [this.x + 2, this.y],
-            [this.x + 2, this.y + 1],
-            [this.x + 2, this.y + 2],
-            [this.x + 1, this.y + 2],
-            [this.x, this.y + 2],
-            [this.x - 1, this.y + 2],
-            [this.x - 2, this.y + 2],
-            [this.x - 2, this.y + 1],
-            [this.x - 2, this.y],
-            [this.x - 2, this.y - 1]
+          
 
         ];
     }
