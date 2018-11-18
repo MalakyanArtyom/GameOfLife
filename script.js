@@ -3,16 +3,18 @@ var backcolor = '#acacac';
 var weather = {
     summer: function () {
         backcolor = 'palegreen';
-        for(var i in grassEatArr){
-            grassEatArr[i].energy += 3;
-            break;
+        for (var i in grassEatArr) {
+            if (grassEatArr[i].energy <= 5 & grassEatArr[i].energy != 0 & grassEatArr[i].energy > 0) {
+                grassEatArr[i].energy += 2;
+            }
         }
     },
     winter: function () {
         backcolor = 'white';
-        for(var i in grassEatArr){
-            grassEatArr[i].energy = 2;
-            break;
+        for (var i in grassEatArr) {
+            if (grassEatArr[i].energy != 0 & grassEatArr[i].energy > 0) {
+                grassEatArr[i].energy -= 2;
+            }
         }
     }
 }
@@ -23,16 +25,15 @@ var matrix = [
     [0, 1, 0, 0, 0],
     [0, 0, 1, 0, 0],
     [1, 1, 0, 0, 0],
-    [1, 1, 0, 4, 0],
-    [1, 1, 0, 0, 0]
-];
+    [1, 1, 0, 0, 0],
+    [1, 1, 0, 0, 2]
+]; 
 
 //var matrix = [];
 var n = 50;
 var m = 50;
-var side = 120;
+var side = 120; //15
 var days = 0;
-
 
 var grassArr = [];
 var grassEatArr = [];
@@ -40,6 +41,7 @@ var predatorArr = [];
 var humanArr = [];
 var infPredatorArr = [];
 var bugArr = [];
+
 
 function setup() {
     /* for (var y = 0; y < n; y++) {
@@ -54,7 +56,7 @@ function setup() {
         matrix[Math.floor(random(50))][Math.floor(random(50))] = 2;
         matrix[Math.floor(random(50))][Math.floor(random(50))] = 3;
         matrix[Math.floor(random(50))][Math.floor(random(50))] = 4;
-        matrix[Math.floor(random(50))][Math.floor(random(50))] = 5;
+        matrix[Math.floor(random(50))][Math.floor(random(50))] = 5; 
     } */
 
 
@@ -93,20 +95,23 @@ function setup() {
 
 
 function draw() {
-    days ++;
-    if(days < 10){
+    days++;
+    if (days < 10) {
         weather.winter();
-        
+
     }
-    else if(days >= 10 && days < 20){
+    else if (days >= 10 && days < 20) {
         weather.summer();
-        
+        //noLoop()
+
     }
-    else if(days == 20){
+    else if (days == 20) {
         days = 0;
-        
+
     }
-    
+    console.log(grassEatArr)
+
+
 
     for (var i in bugArr)
         bugArr[i].infect();

@@ -53,7 +53,7 @@ class GrassEater {
     constructor(x, y, index) {
         this.x = x;
         this.y = y;
-        this.energy = 5;
+        this.energy = 6;
         this.mulPoint = 0;
         this.index = index;
         this.directions = [];
@@ -141,7 +141,7 @@ class GrassEater {
             }
             
         }
-        console.log(this.energy);
+        
 
     }
     die() {
@@ -328,6 +328,7 @@ class Human {
         this.grassMulPoint = 0;
         this.index = index;
         this.directions = [];
+        this.ser = Math.floor(random(1, 3));
     }
     chooseCell(character) {
         this.getNewCoordinates();
@@ -361,6 +362,22 @@ class Human {
         return found;
     }
 
+    /* chooseCellMul(character) {
+        this.getNewCoordinates();
+        var found = [];
+        for (var i in this.directions) {
+            var x = this.directions[i][0];
+            var y = this.directions[i][1];
+            if (x >= 0 && x < matrix[0].length && y >= 0 && y < matrix.length) {
+                if (matrix[y][x] == character) {
+                    found.push(this.directions[i]);
+                }
+            }
+
+        }
+        return found;
+    } */
+
     getNewCoordinates() {
         this.directions = [
             [this.x - 1, this.y - 1],
@@ -389,6 +406,7 @@ class Human {
     }
 
     eat() {
+        //console.log(this.ser);
         var empty = this.chooseCell(3);
         var cell = random(empty);
 
@@ -446,7 +464,7 @@ class Human {
 
 
             this.grassMulPoint++;
-            if (this.grassMulPoint == 15) {
+            if (this.grassMulPoint == 10) {
                 this.mul();
                 this.grassMulPoint = 0;
             }
