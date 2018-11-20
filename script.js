@@ -1,6 +1,6 @@
 var backcolor = '#acacac';
 
-var weather = {
+/* var weather = {
     summer: function () {
         backcolor = 'palegreen';
         for (var i in grassEatArr) {
@@ -17,23 +17,24 @@ var weather = {
             }
         }
     }
-}
+} */
 
-var matrix = [
+/* var matrix = [
     [0, 2, 1, 0, 0],
     [1, 0, 0, 0, 0],
     [0, 1, 0, 0, 0],
     [0, 0, 1, 0, 0],
     [1, 1, 0, 0, 0],
     [1, 1, 0, 0, 0],
-    [1, 1, 0, 0, 2]
-]; 
+    [1, 1, 0, 2, 0]
+]; */
 
-//var matrix = [];
+var matrix = [];
 var n = 50;
 var m = 50;
-var side = 120; //15
+var side = 10;
 var days = 0;
+var eaterColor = "yellow";
 
 var grassArr = [];
 var grassEatArr = [];
@@ -41,28 +42,29 @@ var predatorArr = [];
 var humanArr = [];
 var infPredatorArr = [];
 var bugArr = [];
+var eggArr = [];
 
 
 function setup() {
-    /* for (var y = 0; y < n; y++) {
+    for (var y = 0; y < n; y++) {
         matrix[y] = [];
         for (var x = 0; x < m; x++) {
             matrix[y][x] = random([0, 1])
         }
-    }
+    } 
 
    
     for (var i = 0; i <= 25; i++) {
         matrix[Math.floor(random(50))][Math.floor(random(50))] = 2;
-        matrix[Math.floor(random(50))][Math.floor(random(50))] = 3;
-        matrix[Math.floor(random(50))][Math.floor(random(50))] = 4;
-        matrix[Math.floor(random(50))][Math.floor(random(50))] = 5; 
-    } */
+        //matrix[Math.floor(random(50))][Math.floor(random(50))] = 3;
+        //matrix[Math.floor(random(50))][Math.floor(random(50))] = 4;
+        //matrix[Math.floor(random(50))][Math.floor(random(50))] = 5; 
+    } 
 
 
 
 
-    frameRate(1);
+    frameRate(3);
     createCanvas(matrix[0].length * side, matrix.length * side);
     background('#acacac');
 
@@ -87,6 +89,9 @@ function setup() {
             else if (matrix[y][x] == 6) {
                 infPredatorArr.push(new infectedPredator(x, y, 6));
             }
+            else if (matrix[y][x] == 7) {
+                eggArr.push(new Egg(x, y, 7));
+            }
         }
     }
 
@@ -95,7 +100,9 @@ function setup() {
 
 
 function draw() {
-    days++;
+ 
+
+    /* days++;
     if (days < 10) {
         weather.winter();
 
@@ -109,7 +116,7 @@ function draw() {
         days = 0;
 
     }
-    console.log(grassEatArr)
+    console.log(grassEatArr) */
 
 
 
@@ -126,7 +133,7 @@ function draw() {
         predatorArr[i].eat();
 
     for (var i in grassEatArr)
-        grassEatArr[i].eat();
+        grassEatArr[i].bex();
 
 
     for (var i in grassArr)
@@ -147,7 +154,7 @@ function draw() {
                 rect(x * side, y * side, side, side);
             }
             else if (matrix[y][x] == 2) {
-                fill("yellow");
+                fill(eaterColor);
                 rect(x * side, y * side, side, side);
             }
             else if (matrix[y][x] == 3) {
@@ -166,6 +173,12 @@ function draw() {
                 fill('red');
                 rect(x * side, y * side, side, side);
             }
+            else if (matrix[y][x] == 7) {
+                fill(255, 253, 208);
+                rect(x * side, y * side, side, side);
+            }
+            
         }
     }
+    
 }

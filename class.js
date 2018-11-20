@@ -55,8 +55,10 @@ class GrassEater {
         this.y = y;
         this.energy = 6;
         this.mulPoint = 0;
+        this.bexPoint = 0;
         this.index = index;
         this.directions = [];
+        this.ser = Math.floor(random(1, 3));
     }
     chooseCell(character) {
         this.getNewCoordinates();
@@ -93,7 +95,22 @@ class GrassEater {
         var cell = random(empty);
         
 
-        if (cell && this.mulPoint >= 3) {
+        if (cell && this.mulPoint >= 5 && this.ser == 2) {
+            var newX1 = cell[0];
+            var newY1 = cell[1];
+            for (var i in this.directions) {
+                var x = this.directions[i][0];
+                var y = this.directions[i][1];
+                matrix[newY1][newX1] = 7;
+
+            } 
+
+            var newEgg = new Egg(newX1, newY1, 7);
+            eggArr.push(newEgg);
+            this.mulPoint = 0; 
+        }
+
+        if (this.ser == 1 && cell && this.bexPoint >= 1) {
             var newX1 = cell[0];
             var newY1 = cell[1];
             for (var i in this.directions) {
@@ -101,15 +118,49 @@ class GrassEater {
                 var y = this.directions[i][1];
                 matrix[newY1][newX1] = this.index;
 
-            }
+            } 
 
             var newGrEater = new GrassEater(newX1, newY1, this.index);
             grassEatArr.push(newGrEater);
-            this.mulPoint = 0;
+            this.bexPoint = 0; 
         }
+
+        
+
+    }
+    bex(){
+        var egg = this.chooseCell(7);
+        var cell = random(egg);
+
+        if (cell && this.ser == 1) {
+            var newX = cell[0];
+            var newY = cell[1];
+            matrix[newY][newX] = this.index;
+            matrix[this.y][this.x] = 0;
+
+            this.bexPoint++;
+            console.log("bex egg " + this.bexPoint)
+            this.mul();
+
+            for (var i in eggArr) {
+                if (newX == eggArr[i].x && newY == eggArr[i].y) {
+                    eggArr.splice(i, 1);
+                    break;
+                }
+            }
+
+            this.x = newX;
+            this.y = newY;
+
+        }
+        else {
+            this.eat();
+        }
+
 
     }
     eat() {
+        
         var empty = this.chooseCell(1);
         var cell = random(empty);
 
@@ -754,5 +805,13 @@ class infectedPredator {
 
 }
 
+
+class Egg {
+    constructor(x, y, index) {
+        this.x = x;
+        this.y = y;
+        this.index = index;
+    }
+}
 
 
