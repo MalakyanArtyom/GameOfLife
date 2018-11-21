@@ -4,35 +4,39 @@ var backcolor = '#acacac';
     summer: function () {
         backcolor = 'palegreen';
         for (var i in grassEatArr) {
-            if (grassEatArr[i].energy <= 5 & grassEatArr[i].energy != 0 & grassEatArr[i].energy > 0) {
+            if (grassEatArr[i].energy <= 5 && grassEatArr[i].energy != 0 ) {
                 grassEatArr[i].energy += 2;
+
             }
+            
         }
     },
     winter: function () {
         backcolor = 'white';
         for (var i in grassEatArr) {
-            if (grassEatArr[i].energy != 0 & grassEatArr[i].energy > 0) {
+            if (grassEatArr[i].energy != 0 && grassEatArr[i].energy > 0) {
                 grassEatArr[i].energy -= 2;
             }
         }
     }
 } */
 
+
+
 /* var matrix = [
-    [0, 2, 1, 0, 0],
-    [1, 0, 0, 0, 0],
-    [0, 1, 0, 0, 0],
+    [1, 2, 1, 0, 0],
+    [1, 1, 1, 0, 0],
+    [1, 1, 0, 0, 0],
     [0, 0, 1, 0, 0],
     [1, 1, 0, 0, 0],
     [1, 1, 0, 0, 0],
-    [1, 1, 0, 2, 0]
+    [1, 1, 2, 0, 0]
 ]; */
 
 var matrix = [];
 var n = 50;
 var m = 50;
-var side = 10;
+var side = 12;
 var days = 0;
 var eaterColor = "yellow";
 
@@ -45,15 +49,20 @@ var bugArr = [];
 var eggArr = [];
 
 
+
 function setup() {
     for (var y = 0; y < n; y++) {
         matrix[y] = [];
         for (var x = 0; x < m; x++) {
             matrix[y][x] = random([0, 1])
+            /* if(x == 49 || x == 0 || y == 49 || y == 0){
+                matrix[y][x] = 7;
+            } */
         }
     } 
 
-   
+    
+
     for (var i = 0; i <= 25; i++) {
         matrix[Math.floor(random(50))][Math.floor(random(50))] = 2;
         //matrix[Math.floor(random(50))][Math.floor(random(50))] = 3;
@@ -64,7 +73,7 @@ function setup() {
 
 
 
-    frameRate(3);
+    frameRate(1);
     createCanvas(matrix[0].length * side, matrix.length * side);
     background('#acacac');
 
@@ -92,6 +101,7 @@ function setup() {
             else if (matrix[y][x] == 7) {
                 eggArr.push(new Egg(x, y, 7));
             }
+            
         }
     }
 
@@ -100,8 +110,7 @@ function setup() {
 
 
 function draw() {
- 
-
+    
     /* days++;
     if (days < 10) {
         weather.winter();
@@ -116,7 +125,7 @@ function draw() {
         days = 0;
 
     }
-    console.log(grassEatArr) */
+    console.log(grassEatArr); */
 
 
 
@@ -139,7 +148,7 @@ function draw() {
     for (var i in grassArr)
         grassArr[i].mul();
 
-
+    
 
     for (var y = 0; y < matrix.length; y++) {
         for (var x = 0; x < matrix[y].length; x++) {

@@ -129,6 +129,8 @@ class GrassEater {
 
     }
     bex(){
+        //console.log(this.energy);
+        
         var egg = this.chooseCell(7);
         var cell = random(egg);
 
@@ -139,7 +141,6 @@ class GrassEater {
             matrix[this.y][this.x] = 0;
 
             this.bexPoint++;
-            console.log("bex egg " + this.bexPoint)
             this.mul();
 
             for (var i in eggArr) {
