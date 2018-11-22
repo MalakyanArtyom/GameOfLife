@@ -3,7 +3,8 @@ class Grass {
         this.x = x;
         this.y = y;
         this.index = index;
-        this.multiply = 0;
+        this.multiply = 5;
+        this.mulMax = 8;
         this.directions = [
             [this.x - 1, this.y - 1],
             [this.x, this.y - 1],
@@ -36,7 +37,7 @@ class Grass {
         var newCell = random(emptyCells);
 
 
-        if (newCell && this.multiply >= 8) {
+        if (newCell && this.multiply >= this.mulMax) {
             var newX = newCell[0];
             var newY = newCell[1];
             matrix[newY][newX] = this.index;
@@ -58,6 +59,7 @@ class GrassEater {
         this.bexPoint = 0;
         this.index = index;
         this.directions = [];
+        this.timeOut = 0;
         this.ser = Math.floor(random(1, 3));
     }
     chooseCell(character) {
@@ -91,9 +93,10 @@ class GrassEater {
     }
     mul() {
 
+        
         var empty = this.chooseCell(0);
         var cell = random(empty);
-        
+
 
         if (cell && this.mulPoint >= 5 && this.ser == 2) {
             var newX1 = cell[0];
@@ -103,11 +106,11 @@ class GrassEater {
                 var y = this.directions[i][1];
                 matrix[newY1][newX1] = 7;
 
-            } 
+            }
 
             var newEgg = new Egg(newX1, newY1, 7);
             eggArr.push(newEgg);
-            this.mulPoint = 0; 
+            this.mulPoint = 0;
         }
 
         if (this.ser == 1 && cell && this.bexPoint >= 1) {
@@ -118,19 +121,23 @@ class GrassEater {
                 var y = this.directions[i][1];
                 matrix[newY1][newX1] = this.index;
 
-            } 
+            }
 
             var newGrEater = new GrassEater(newX1, newY1, this.index);
             grassEatArr.push(newGrEater);
-            this.bexPoint = 0; 
+            this.bexPoint = 0;
         }
 
-        
+
+
+
+
+
 
     }
-    bex(){
-        //console.log(this.energy);
-        
+    bex() {
+        console.log(this.energy);
+
         var egg = this.chooseCell(7);
         var cell = random(egg);
 
@@ -161,7 +168,7 @@ class GrassEater {
 
     }
     eat() {
-        
+
         var empty = this.chooseCell(1);
         var cell = random(empty);
 
@@ -191,9 +198,9 @@ class GrassEater {
             if (this.energy <= 0) {
                 this.die();
             }
-            
+
         }
-        
+
 
     }
     die() {
@@ -290,7 +297,7 @@ class Predator {
 
             var newPredator = new Predator(newX, newY, this.index);
             predatorArr.push(newPredator);
-            
+
         }
 
     }
@@ -334,7 +341,7 @@ class Predator {
 
     }
     die() {
-        
+
         for (var i in predatorArr) {
             if (this.x == predatorArr[i].x && this.y == predatorArr[i].y) {
                 predatorArr.splice(i, 1);
@@ -637,7 +644,7 @@ class Bug {
             [this.x - 1, this.y + 1],
             [this.x, this.y + 1],
             [this.x + 1, this.y + 1],
-          
+
 
         ];
     }
