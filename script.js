@@ -47,7 +47,7 @@ var weather = {
 
 
 
-var matrix = [
+/* var matrix = [
     [1, 2, 1, 0, 0],
     [1, 1, 1, 0, 0],
     [1, 1, 0, 0, 0],
@@ -55,14 +55,16 @@ var matrix = [
     [1, 1, 0, 0, 0],
     [1, 1, 0, 0, 0],
     [1, 1, 0, 0, 2]
-]; 
+];  */
 
-//var matrix = [];
+var matrix = [];
 var n = 50;
 var m = 50;
-var side = 120;
+var side = 12;
 var days = 0;
-var eaterColor = "yellow";
+var bazm;
+
+
 
 var grassArr = [];
 var grassEatArr = [];
@@ -71,33 +73,35 @@ var humanArr = [];
 var infPredatorArr = [];
 var bugArr = [];
 var eggArr = [];
+var floodArr = [];
 
 
 
 function setup() {
-    /*for (var y = 0; y < n; y++) {
+    for (var y = 0; y < n; y++) {
         matrix[y] = [];
         for (var x = 0; x < m; x++) {
             matrix[y][x] = random([0, 1])
             /* if(x == 49 || x == 0 || y == 49 || y == 0){
                 matrix[y][x] = 7;
-            } 
+            } */
         }
     } 
 
     
 
     for (var i = 0; i <= 25; i++) {
-        matrix[Math.floor(random(50))][Math.floor(random(50))] = 2;
+        //matrix[Math.floor(random(50))][Math.floor(random(50))] = 2;
         //matrix[Math.floor(random(50))][Math.floor(random(50))] = 3;
-        //matrix[Math.floor(random(50))][Math.floor(random(50))] = 4;
+        matrix[Math.floor(random(50))][Math.floor(random(50))] = 4;
         //matrix[Math.floor(random(50))][Math.floor(random(50))] = 5; 
-    }  */
+    }  
+
+    var ran = Math.floor(random(0, 50));
+    matrix[0][ran] = 8;
 
 
-
-
-    frameRate(1);
+    frameRate(5);
     createCanvas(matrix[0].length * side, matrix.length * side);
     background('#acacac');
 
@@ -125,6 +129,9 @@ function setup() {
             else if (matrix[y][x] == 7) {
                 eggArr.push(new Egg(x, y, 7));
             }
+            else if (matrix[y][x] == 8) {
+                floodArr.push(new Flood(x, y, 8));
+            }
             
         }
     }
@@ -133,7 +140,22 @@ function setup() {
 }
 
 
+
+
 function draw() {
+    
+    
+    
+    //console.log(humanArr.length)
+
+    if(frameCount % 3 == 0){
+        var bazm = true;
+        //console.log(bazm);
+    }
+    else{
+        var bazm = false;
+        //console.log(bazm);
+    }
 
     days++;
     if (days == 1) {
@@ -149,6 +171,8 @@ function draw() {
     
 
 
+    for (var i in floodArr)
+        floodArr[i].mul();
 
     for (var i in bugArr)
         bugArr[i].infect();
@@ -184,7 +208,7 @@ function draw() {
                 rect(x * side, y * side, side, side);
             }
             else if (matrix[y][x] == 2) {
-                fill(eaterColor);
+                fill("yellow");
                 rect(x * side, y * side, side, side);
             }
             else if (matrix[y][x] == 3) {
@@ -205,6 +229,10 @@ function draw() {
             }
             else if (matrix[y][x] == 7) {
                 fill(255, 253, 208);
+                rect(x * side, y * side, side, side);
+            }
+            else if (matrix[y][x] == 8) {
+                fill("blue");
                 rect(x * side, y * side, side, side);
             }
             

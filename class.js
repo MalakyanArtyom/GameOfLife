@@ -3,7 +3,7 @@ class Grass {
         this.x = x;
         this.y = y;
         this.index = index;
-        this.multiply = 5;
+        this.multiply = 0;
         this.mulMax = 8;
         this.directions = [
             [this.x - 1, this.y - 1],
@@ -59,7 +59,6 @@ class GrassEater {
         this.bexPoint = 0;
         this.index = index;
         this.directions = [];
-        this.timeOut = 0;
         this.ser = Math.floor(random(1, 3));
     }
     chooseCell(character) {
@@ -113,7 +112,7 @@ class GrassEater {
             this.mulPoint = 0;
         }
 
-        if (this.ser == 1 && cell && this.bexPoint >= 1) {
+        if (this.ser == 1 && cell && this.bexPoint >= 1 ) {
             var newX1 = cell[0];
             var newY1 = cell[1];
             for (var i in this.directions) {
@@ -136,12 +135,11 @@ class GrassEater {
 
     }
     bex() {
-        console.log(this.energy);
-
+        
         var egg = this.chooseCell(7);
         var cell = random(egg);
 
-        if (cell && this.ser == 1) {
+        if (cell && this.ser == 1 ) {
             var newX = cell[0];
             var newY = cell[1];
             matrix[newY][newX] = this.index;
@@ -823,3 +821,67 @@ class Egg {
 }
 
 
+class Flood {
+    constructor(x, y, index) {
+        this.x = x;
+        this.y = y;
+        this.index = index;
+        this.multiply = 0;
+        this.mulNum = 0;
+        this.directions = [
+            [this.x - 1, this.y - 1],
+            [this.x, this.y - 1],
+            [this.x + 1, this.y - 1],
+            [this.x - 1, this.y],
+            [this.x + 1, this.y],
+            [this.x - 1, this.y + 1],
+            [this.x, this.y + 1],
+            [this.x + 1, this.y + 1]
+        ];
+
+    }
+    chooseCellDouble(character1, character2) {
+        var found = [];
+        for (var i in this.directions) {
+            var x = this.directions[i][0];
+            var y = this.directions[i][1];
+            if (x >= 0 && x < matrix[0].length && y >= 0 && y < matrix.length) {
+                if (matrix[y][x] == character1 || matrix[y][x] == character2) {
+                    found.push(this.directions[i]);
+                }
+            }
+
+        }
+        return found;
+    }
+    mul() {
+        this.mulNum ++;
+        this.multiply++;
+        var emptyCells = this.chooseCellDouble(0, 1);
+        var newCell = random(emptyCells);
+
+
+        if (newCell && this.multiply >= 2) {
+            var newX = newCell[0];
+            var newY = newCell[1];
+            matrix[newY][newX] = this.index;
+
+            var newFlood = new Flood(newX, newY, this.index);
+            floodArr.push(newFlood);
+            this.multiply = 0;
+        }
+        else if (this.mulNum >= 10){
+            this.end();
+        }
+        
+    }
+    end() {
+        for (var i in floodArr) {
+            if (this.x == floodArr[i].x && this.y == floodArr[i].y) {
+                floodArr.splice(i, 1);
+                matrix[this.y][this.x] = 0;
+                break;
+            }
+        }
+    }
+}
