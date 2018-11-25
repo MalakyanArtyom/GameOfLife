@@ -31,7 +31,7 @@ var weather = {
             predatorArr[i].energy -= 2;
         }
         for (var i in humanArr) {
-            humanArr[i].energy -= 2;
+            humanArr[i].energy -= 7;
         }
         for (var i in bugArr) {
             bugArr[i].energy -= 2;
@@ -48,19 +48,19 @@ var weather = {
 
 
 /* var matrix = [
-    [1, 2, 1, 0, 0],
+    [1, 4, 1, 0, 0],
     [1, 1, 1, 0, 0],
     [1, 1, 0, 0, 0],
     [0, 0, 1, 0, 0],
     [1, 1, 0, 0, 0],
     [1, 1, 0, 0, 0],
-    [1, 1, 0, 0, 2]
+    [1, 1, 0, 0, 4]
 ];  */
 
 var matrix = [];
 var n = 50;
 var m = 50;
-var side = 12;
+var side = 17;
 var days = 0;
 var bazm;
 
@@ -82,26 +82,22 @@ function setup() {
         matrix[y] = [];
         for (var x = 0; x < m; x++) {
             matrix[y][x] = random([0, 1])
-            /* if(x == 49 || x == 0 || y == 49 || y == 0){
-                matrix[y][x] = 7;
-            } */
         }
     } 
 
     
 
     for (var i = 0; i <= 25; i++) {
-        //matrix[Math.floor(random(50))][Math.floor(random(50))] = 2;
+        matrix[Math.floor(random(50))][Math.floor(random(50))] = 2;
         //matrix[Math.floor(random(50))][Math.floor(random(50))] = 3;
-        matrix[Math.floor(random(50))][Math.floor(random(50))] = 4;
+        //matrix[Math.floor(random(50))][Math.floor(random(50))] = 4;
         //matrix[Math.floor(random(50))][Math.floor(random(50))] = 5; 
     }  
 
     var ran = Math.floor(random(0, 50));
     matrix[0][ran] = 8;
-
-
-    frameRate(5);
+  
+    frameRate(4);
     createCanvas(matrix[0].length * side, matrix.length * side);
     background('#acacac');
 
@@ -145,9 +141,6 @@ function setup() {
 function draw() {
     
     
-    
-    //console.log(humanArr.length)
-
     if(frameCount % 3 == 0){
         var bazm = true;
         //console.log(bazm);
@@ -163,7 +156,6 @@ function draw() {
     }
     else if (days == 10) {
         weather.summer();
-        //noLoop()
     }
     else if (days == 20) {
         days = 0;
@@ -173,7 +165,7 @@ function draw() {
 
     for (var i in floodArr)
         floodArr[i].mul();
-
+      
     for (var i in bugArr)
         bugArr[i].infect();
 
@@ -189,7 +181,7 @@ function draw() {
     for (var i in grassEatArr)
         grassEatArr[i].bex();
 
-
+    
     for (var i in grassArr)
         grassArr[i].mul();
 
@@ -240,3 +232,5 @@ function draw() {
     }
     
 }
+
+

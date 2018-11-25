@@ -385,7 +385,6 @@ class Human {
         this.grassMulPoint = 0;
         this.index = index;
         this.directions = [];
-        this.ser = Math.floor(random(1, 3));
     }
     chooseCell(character) {
         this.getNewCoordinates();
@@ -419,22 +418,6 @@ class Human {
         return found;
     }
 
-    /* chooseCellMul(character) {
-        this.getNewCoordinates();
-        var found = [];
-        for (var i in this.directions) {
-            var x = this.directions[i][0];
-            var y = this.directions[i][1];
-            if (x >= 0 && x < matrix[0].length && y >= 0 && y < matrix.length) {
-                if (matrix[y][x] == character) {
-                    found.push(this.directions[i]);
-                }
-            }
-
-        }
-        return found;
-    } */
-
     getNewCoordinates() {
         this.directions = [
             [this.x - 1, this.y - 1],
@@ -459,11 +442,11 @@ class Human {
             matrix[newY][newX] = this.index;
             var newHuman = new Human(newX, newY, this.index);
             humanArr.push(newHuman);
-        }
-    }
+        } 
+    } 
 
     eat() {
-        //console.log(this.ser);
+        
         var empty = this.chooseCell(3);
         var cell = random(empty);
 
@@ -840,13 +823,13 @@ class Flood {
         ];
 
     }
-    chooseCellDouble(character1, character2) {
+    chooseCellDouble(character1, character2, character3) {
         var found = [];
         for (var i in this.directions) {
             var x = this.directions[i][0];
             var y = this.directions[i][1];
             if (x >= 0 && x < matrix[0].length && y >= 0 && y < matrix.length) {
-                if (matrix[y][x] == character1 || matrix[y][x] == character2) {
+                if (matrix[y][x] == character1 || matrix[y][x] == character2 || matrix[y][x] == character3) {
                     found.push(this.directions[i]);
                 }
             }
@@ -857,7 +840,7 @@ class Flood {
     mul() {
         this.mulNum ++;
         this.multiply++;
-        var emptyCells = this.chooseCellDouble(0, 1);
+        var emptyCells = this.chooseCellDouble(0, 1, 7);
         var newCell = random(emptyCells);
 
 
@@ -866,13 +849,30 @@ class Flood {
             var newY = newCell[1];
             matrix[newY][newX] = this.index;
 
+            for (var i in grassArr) {
+                if (newX == grassArr[i].x && newY == grassArr[i].y) {
+                    grassArr.splice(i, 1);
+                    break;
+                }
+            }
+
+            for (var i in eggArr) {
+                if (newX == eggArr[i].x && newY == eggArr[i].y) {
+                    eggArr.splice(i, 1);
+                    break;
+                }
+            }
+
             var newFlood = new Flood(newX, newY, this.index);
             floodArr.push(newFlood);
             this.multiply = 0;
+
+            
         }
-        else if (this.mulNum >= 10){
-            this.end();
+        else if(this.mulNum >= 10){
+            this.end()
         }
+
         
     }
     end() {
