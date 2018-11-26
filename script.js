@@ -63,6 +63,8 @@ var m = 50;
 var side = 17;
 var days = 0;
 var bazm;
+var ranFlood = Math.floor(Math.random() * (20 - 10) ) + 10;
+var mulFlood = 0;
 
 
 
@@ -74,6 +76,9 @@ var infPredatorArr = [];
 var bugArr = [];
 var eggArr = [];
 var floodArr = [];
+
+
+
 
 
 
@@ -94,7 +99,8 @@ function setup() {
         //matrix[Math.floor(random(50))][Math.floor(random(50))] = 5; 
     }  
 
-    var ran = Math.floor(random(0, 50));
+    
+    var ran = Math.floor(random(0, 49));
     matrix[0][ran] = 8;
   
     frameRate(4);
@@ -141,6 +147,7 @@ function setup() {
 function draw() {
     
     
+
     if(frameCount % 3 == 0){
         var bazm = true;
         //console.log(bazm);
@@ -161,11 +168,16 @@ function draw() {
         days = 0;
     }
     
-
-
-    for (var i in floodArr)
+    if(frameCount == ranFlood){
+        mulFlood = 1;
+    }
+    
+    if(mulFlood == 1){
+        for (var i in floodArr)
         floodArr[i].mul();
-      
+    }
+    
+    
     for (var i in bugArr)
         bugArr[i].infect();
 
@@ -232,5 +244,6 @@ function draw() {
     }
     
 }
+
 
 

@@ -811,6 +811,7 @@ class Flood {
         this.index = index;
         this.multiply = 0;
         this.mulNum = 0;
+        this.maxResult = Math.floor(random(200, 400));
         this.directions = [
             [this.x - 1, this.y - 1],
             [this.x, this.y - 1],
@@ -837,14 +838,28 @@ class Flood {
         }
         return found;
     }
+    num(){
+        var result = 0;
+
+        
+        
+    }
     mul() {
+        
+        var result = 1;
         this.mulNum ++;
         this.multiply++;
         var emptyCells = this.chooseCellDouble(0, 1, 7);
         var newCell = random(emptyCells);
 
+        for (var y = 0; y < n; y++) {
+            for (var x = 0; x < m; x++) {
+                if(matrix[y][x] == 8)
+                result += 1;
+            }
+        }
 
-        if (newCell && this.multiply >= 2) {
+        if (newCell && this.multiply >= 2 && result < this.maxResult) {
             var newX = newCell[0];
             var newY = newCell[1];
             matrix[newY][newX] = this.index;
@@ -866,21 +881,14 @@ class Flood {
             var newFlood = new Flood(newX, newY, this.index);
             floodArr.push(newFlood);
             this.multiply = 0;
-
-            
         }
-        else if(this.mulNum >= 10){
-            this.end()
-        }
-
-        
-    }
-    end() {
-        for (var i in floodArr) {
-            if (this.x == floodArr[i].x && this.y == floodArr[i].y) {
-                floodArr.splice(i, 1);
-                matrix[this.y][this.x] = 0;
-                break;
+        else if(result == this.maxResult){
+            for (var y = 0; y < n; y++) {
+                for (var x = 0; x < m; x++) {
+                    if(matrix[y][x] == 8)
+                    matrix[y][x] = 0;
+                    floodArr.splice(x, 1);
+                }
             }
         }
     }
