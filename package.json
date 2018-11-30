@@ -1,0 +1,25 @@
+{
+  "name": "gameoflife",
+  "version": "1.0.0",
+  "description": "",
+  "main": "class.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "node server.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/MalakyanArtyom/GameOfLife.git"
+  },
+  "author": "Malakyan Artyom",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/MalakyanArtyom/GameOfLife/issues"
+  },
+  "homepage": "https://github.com/MalakyanArtyom/GameOfLife#readme",
+  "dependencies": {
+    "express": "^4.16.4",
+    "p5": "^0.7.2",
+    "socket.io": "^2.2.0"
+  }
+}

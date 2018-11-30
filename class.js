@@ -811,7 +811,7 @@ class Flood {
         this.index = index;
         this.multiply = 0;
         this.mulNum = 0;
-        this.maxResult = Math.floor(random(200, 400));
+        this.maxResult = Math.floor(random(400, 600));
         this.directions = [
             [this.x - 1, this.y - 1],
             [this.x, this.y - 1],
@@ -837,12 +837,6 @@ class Flood {
 
         }
         return found;
-    }
-    num(){
-        var result = 0;
-
-        
-        
     }
     mul() {
         
