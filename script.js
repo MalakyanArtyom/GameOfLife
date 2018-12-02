@@ -3,6 +3,7 @@ var backcolor = '#acacac';
 var weather = {
     summer: function () {
         backcolor = 'palegreen';
+        document.getElementById("weath").innerHTML = "Ամառ"
         for (var i in grassEatArr) {
             grassEatArr[i].energy += 2;
         }
@@ -24,6 +25,7 @@ var weather = {
     },
     winter: function () {
         backcolor = 'white';
+        document.getElementById("weath").innerHTML = "Ձմեռ"
         for (var i in grassEatArr) {
             grassEatArr[i].energy -= 2;
         }
@@ -62,7 +64,6 @@ var n = 50;
 var m = 50;
 var side = 17;
 var days = 0;
-var bazm;
 var ranFlood = Math.floor(Math.random() * (20 - 10) ) + 10;
 var mulFlood = 0;
 
@@ -146,17 +147,6 @@ function setup() {
 
 function draw() {
     
-    
-
-    if(frameCount % 3 == 0){
-        var bazm = true;
-        //console.log(bazm);
-    }
-    else{
-        var bazm = false;
-        //console.log(bazm);
-    }
-
     days++;
     if (days == 1) {
         weather.winter();

@@ -1,15 +1,13 @@
 var socket = io.connect('http://localhost:4444');
 var table = document.getElementById("statistics");
 
-//Ամեն 10000 մլվրկ֊ը մեկ
+
 setInterval(function(){
-    //ուղարկում ենք "get stats" հացրումը սերվերին
     socket.emit("get stats", []);
 }, 10000);
 
-//Երբ սերվերը ուղարկում է տվյալ "send stats" պիտակով
+
 socket.on("send stats",function(statistics){
-    //Պատրսատում ենք աղյուսակը
     statistics = JSON.parse(statistics);
     table.innerHTML = "";
     tableHTML = "<tr><td>Ժամանակ</td><td>Ձվեր</td><td>frameCount</td></tr>";
@@ -22,5 +20,4 @@ socket.on("send stats",function(statistics){
     }
 
     table.innerHTML = tableHTML;
-    //console.log(statistics);
 })
