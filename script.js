@@ -1,4 +1,4 @@
-var backcolor = '#acacac';
+var backcolor = '#acacac'; //sdsdfadfsadas
 
 var weather = {
     summer: function () {
